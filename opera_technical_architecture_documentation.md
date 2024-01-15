@@ -1,7 +1,7 @@
 # RODEO WP6 OPERA Weather Radar Data Technical Architecture Design Document
 
 
-### KNMI (?), Mikko Rauhala, Mikko Visa, Istvans, Peter Alexander Garnæs, Lukas Tüchler (?), Daniel Heintze, Steffen Kremer
+### KNMI (?), Mikko Rauhala, Mikko Visa, Istvan Sebok, Peter Alexander Garnæs, Lukas Tüchler (?), Daniel Heintze, Steffen Kremer
 
 
 ## Abstract
