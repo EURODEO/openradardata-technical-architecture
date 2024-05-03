@@ -14,7 +14,7 @@ all stakeholders involved in the project.
 |Version |Date |Comment |Responsible
 |:---|:---|:---|:---
 |0.1 |2024-01-14 |First draft |Annakaisa v. Lerber
-| | | |
+|0.2 |2024-05-03 |Rewrite     |Vegar K
 | | | |
 | | | |
 
@@ -48,7 +48,7 @@ The TDD is intended to be a living document, updated as necessary throughout the
 
 ### Scope of the System
 
-The vision of the ... is to deliver the first component of an FEMDI, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of observations and to allow a gradual transition from the use of the Global Telecommunication System (GTS) to the use of the Internet for collection and distribution of information. In particular, ... is selected as a demonstration project of WIS 2.0 in order to be used to illustrate, evolve, validate and/or refine its concepts, solutions, and implementation approach.
+The vision of the Europena Open Radara data is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
 
 
 ## System Overview
