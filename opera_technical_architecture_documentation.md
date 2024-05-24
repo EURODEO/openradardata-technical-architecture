@@ -66,7 +66,7 @@ On the left are the data producers (mainly NMHS's) who produce the Observation d
 
 #### Landscape Diagram
 
-The diagram below depicts the landscape of the E-SOH system.
+The diagram below depicts the landscape of the open-radar-data system.
 
 **LINK TO Landscape Diagram**
 
@@ -78,7 +78,7 @@ The open-radar-data system consists of a central API endpoint that is able to co
 
 #### Container Diagram
 
-The container diagram below shows all the main components of the E-SOH system.  
+The container diagram below shows all the main components of the open-radar-data system.  
 
 **LINK TO Landscape Diagram**
 
@@ -89,8 +89,8 @@ The main access point for conumers is the Central open-radar-data API Endpoint. 
  - Input decoder. This component is called upon by the Ingestion component for decoding radar files input. It will use extract form OPERA metadata database and OSCAR to retrieve missing radar site metadata.
  - Notification service. This component provides notifications to the external systems as soon as new data is ingested, so the data can be pulled by the external systems. All data is made avaialble is the notifictions trough links to dataset stored in EWC object-store or in local datastor localy at NMS or in NMS tennency.  
  - Metadata store. The main storage component for data and metadata. It has the memory of a goldfish: it will hold the data only for 24 hours. 
- - Search and access API's. The endpoint for both the Central E-SOH API endpoint and external WIS2.0 services.
- - Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the E-SOH local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/e-soh-kpis).
+ - Search and access API's. The endpoint for both the Central open-radar-data API endpoint and external WIS2.0 services.
+ - Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the open-radar-data local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/e-soh-kpis).
 
 
 ### Components and Interfaces
