@@ -140,11 +140,13 @@ The final data store will be selected during the development. This will be done 
 
 ### Data Models
 
+#### Data formats
+
 European composite
-ODIM HDF5
+- ODIM HDF5
 
 Single site radar data  
-Validated ODIM HDF5
+- Validated ODIM HDF5
 
 National composite
 - Validated ODIM HDF5
@@ -153,7 +155,7 @@ National composite
 
 
 API input and output formats
-*CoverageJSON*
+- CoverageJSON
 The overall concepts of CoverageJSON are close to those of the [ISO19123] standard and the OGC standard Coverage Implementation Schema ([OGC-CIS]), which specialises ISO19123.
 https://www.iso.org/standard/40121.html
 
@@ -161,30 +163,25 @@ The overall structure of CoverageJSON is quite close to that of [NetCDF], consis
 
 #### Metadata specification
 
-The following principles shall be followed:
+**(Which of theese shoult be mentioned)** The following principles shall be followed: 
 
 * A minimum set of (required and recommended) metadata must follow the data, i.e., as part of the data files output from E-SOH APIs and the event queue.
 * Input datasets must be enriched by required metadata upon ingestion, if it is not already provided.
 * In order to obtain traceability, a child dataset must reference its parent dataset by the parent's metadata identification. The parent dataset's metadata identification is expected to be persistent and actionable, but the NRT dataset identification is not.
 * To support interoperability, it must be possible to translate from the agreed data-following standards to other standards (e.g., DCAT, ISO19115, etc.).
 * All datasets must have defined use constraints provided by a standard license or release statement ("no rights reserved").
-* All datasets must have defined access constraints (in particular for fully or partly restricted datasets, although this is not currently in the scope  of E-SOH). The optional access constraints must be defined by a controlled vocabulary.
+* All datasets must have defined access constraints. The optional access constraints must be defined by a controlled vocabulary.
 
 The [Attribute Convention for Data Discovery](https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3) describes attributes recommended for describing a NetCDF dataset to data discovery systems. It should be possible to use the ACDD vocabulary in, e.g., GeoJSON or CoverageJSON as well.
 
-The [CF metadata conventions](https://cfconventions.org/) define (use) metadata that provide a definitive description of what the data in each variable of a NetCDF file represents, as well as its spatial and temporal properties. This enables users to understand and reuse the data. The CF metadata conventions were created for the NetCDF format, but there are ongoing efforts to also use it for the definition of a standard JSON format for the exchange of weather and climate data; [CF-JSON](http://cf-json.org/).
+If possible The [CF metadata conventions](https://cfconventions.org/) define (use) metadata that provide a definitive description of what the data in each variable represents, as well as its spatial and temporal properties. This enables users to understand and reuse the data. The CF metadata conventions were created for the NetCDF format, but there are ongoing efforts to also use it for the definition of a standard JSON format for the exchange of weather and climate data; [CF-JSON](http://cf-json.org/).
 
 Recommendations:
 
 * The ACDD vocabulary should be used to make datasets Findable, with extensions where necessary to promote Interoperability with existing standards (e.g., DCAT, ISO19115 and profiles of these)
-* The CF conventions should be followed to enable Reuse
+* The CF conventions should be followed to enable Reuse **(If possoble)** 
 * Use a standard license, e.g., [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/), provided by the URL in the form similar to "<URL> (<Identifier>)" using elements from the [SPDX license list](https://spdx.org/licenses/).
 
-#### BUFR
-#### HDF5
-#### CSV
-
-#### GeoJSON
 
 #### MQTT message payload
 
@@ -196,7 +193,7 @@ Requirements:
 
 Options for the MQTT message payload:
 
-* We have decided that actual data can be embedded in the MQTT message (as long as it is below a certain size limit as defined in the MQTT definition). This should be done following the "properties" tag in the JSON schema, according to [section 7.1.7.7.](https://wmo-im.github.io/wis2-notification-message/standard/wis2-notification-message-DRAFT.html=_additional_properties) in the encoding specification.
+* radar data will not be deployd directly to the MQTT message
 * If data records are embedded in the message, also its discovery metadata must be embedded as ACDD attributes
 * If data records are embedded in the message, also its use metadata following the CF conventions must be embedded 
 * In this context, it must be defined how these messages relate to BUFR files or if separate messages should be submitted for the BUFR files, etc.
@@ -204,24 +201,6 @@ Options for the MQTT message payload:
 ## Integration and APIs
 
 ### External Integrations
-
-#### GTS
-
-Data going in GTS network needs WMO-title “TTAAii”, which tells: the type of the data and where did it come from. WMO-title should be given in the beginning of the data. List of the TTAA  can be found in: WMO-No. 386 Document (Manual on the Global Telecommunication System, PART II, chapter 5, Attachment II-5 Data Designators T1T2A1A2ii in abbreviated headings). “ii”-part is used to separate same kind of data from another.
-
-WIGOS identifiers can be included in some BUFR templates:
-
-* 3 07 024: Ground-based GNSS data – slant total delay
-* 3 07 092: BUFR template for surface observations from n-minute period
-* 3 07 103: Snow observation, snow density, snow water equivalent
-* 3 08 018: Sequence for reporting of basic ship AWS observations
-* 3 09 056: Sequence for representation of radiosonde descent data
-* 3 09 057: Sequence for representation of TEMP, TEMP SHIP and TEMP MOBIL observation type data with higher precision of pressure and geopotential height
-* 3 11 012: BUFR template for aircraft ascent/descent profile with latitude and longitude given for each level
-* 3 15 011: Met-ocean observations from autonomous surface vehicles
-* 3 15 013: Sequence for reporting trajectory profile data from marine animal tags
-
-If we are using WIS2, which has a gateway to GTS, do we need to concern about GTS anymore?
 
 #### OSCAR
 
