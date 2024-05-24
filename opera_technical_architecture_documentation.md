@@ -253,22 +253,6 @@ The FEMDI, WIS2 and E-SOH documentation does not directly mention API Rate limit
 
 #### Software Technology Choice
 
-The [pygeoapi](https://pygeoapi.io/toolbox) is a Python server implementation of the OGC API suite of standards.
-
-E-SOH will employ pygeoapi for serving the OGC EDR and Records APIs, since this is part of an established international environment, as well as in some already existing projects at MET Norway. Since E-SOH has a clear deadline, it is important to be able to reuse as much as possible, and the project will benefit from external efforts.
-
-Benefits:
-
-* There is an established process around working with metadata standards
-* Open-Source Software Reuse
-* Access to experienced people with insight in the implementation
-
-Concerns:
-
-* A plugin for pygeoapi needs to be developed to interact with the E-SOH Data and Metadata Store
-* There is some risk that we will not be able to implement necessary functionalities, and the time it will take to implement new solutions is highly uncertain. Since we do not know if modules fit together.
-* Danger of building a solution that is too complex in relation to what we need. KNMI has demonstrated that, with little code, we can implement a simple EDR API that can read data from storage. However, this cannot support metadata interoperability, which is important.
-
 ## Security and Privacy
 
 ### Data Protection and Encryption
