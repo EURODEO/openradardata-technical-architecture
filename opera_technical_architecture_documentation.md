@@ -72,8 +72,7 @@ The diagram below depicts the landscape of the E-SOH system.
 
 On top is the data consumer who is interested in the open radar data form one or more NMS. The data consumer can get the data in two ways:
 - Via the FEMDI system. The FEMDI system will be build in a RODEO Work package. It will contain the Data Catalogue and a central API Gateway which will forward the API queries from the user to the Central API from the federated open-radar-data system.
-**-  Via the WIS2 Shared services. The WIS2.0 shared services will replace the GTS. In the future the user will be able to retreve European open-radar-data files that is posted to the WIS 2.0 system. This is a functionality that has to be developed and made available accourding to the Eumetnet OPERA and EU HVD** 
-- 
+- **Via the WIS2 Shared services. The WIS2.0 shared services will replace the GTS. In the future the user will be able to retreve European open-radar-data files that is posted to the WIS 2.0 system. This is a functionality that has to be developed and made available accourding to the Eumetnet OPERA and EU HVD** 
 
 The open-radar-data system consists of a central API endpoint that is able to connect to a central datastore in EWC and local datastores at each NMS (For products within the national composite category). The API endpoint will run centrally on the European Weather Cloud (EWC). There is not planned to run federated API solutions in this the open-radar-data system. 
 
@@ -102,73 +101,31 @@ The main access point for conumers is the Central open-radar-data API Endpoint. 
 
 #### Notification Service
 
-Based on investigations documented in the [E-SOH PoC Report](https://github.com/EURODEO/e-soh-poc-report), RabbitMQ is the technology choice for the E-SOH Notification Service. The main drawback is that it does not support MQTT V5 but we expect that this is coming.
+Based on the development in the RODEO E-soh WP RabbitMQ is the technology choice for the Open-radar-data Notification Service. One drawback is that it does not support MQTT V5 but we expect that this is coming.
 
 #### Data and Metadata Store
 
 ##### Datastore alternatives
 
-Several different implementation principles for the data store were considered. On top level the scenarios differ by two means:
-
-* relational database vs. noSQL (here especially: document) databases
-* conventional master data vs. event streaming approach (i.e. series of events stored form the source of truth)
-
-First we talk about the different data storage​ alternatives, then we discuss the options of event sourcing or more conventional operating principles.
+The open-radar-data meatadata store will choos the storage backend that is most relavent for the systems intended use. This will not be visible for the enduser. The storage backend will only be measured on the I/O as part of the system. And and how it performs in a operational setting.    
 
 ###### Document database approach
 
-Document database approach relies entirely on noSQL database able to store JSON documents. For this purpose there are open source projects like MongoDB and Elastic. 
-
-In this project Elastic (formerly Elasticsearch) is investigated and evaluated (see the PoC report). Elastic supports geo-queries and is a distributed database system (reliability and scalability). 
-
-The principle of the document-based database approach is shown in the following diagram
-
-###### Relational database approach
-
-Relational database with narrow tables can provide a flexible solution for numerical point data and metadata. PostGIS extension to PostgreSQL adds geospatial query capability and there's also an extension called timescaleDB to enhance time series performance in PostgreSQL environment.
-
-The relational database approach is similar to the document database approach (See above), the only change will be the actual database itself. 
-
-###### Relational database with JSON capability
-
-E.g. PostgreSQL and MySQL support JSON datatype. That makes it possible to support structured and semi-structured data in relational database by adding a column for JSON data. 
-
-The relational database with JSON capability will bridge the fast column lookups from the relational database with the flexibility from the document database approach. This hybrid model is built by the same components as in the relational database (See previous subsection), the only difference is the special JSON datatype column. Probably JSON-queries in pure document-based database will be faster than this hybrid model, but we still maintain the speed from the relational columns.
-
-###### Files-based storage
-
-Files-based storage was considered, but as query logic has to be implemented separately and there is requirements for structured data and queries, we do not consider it as a feasible option for implementation. There's also another downside with files which is challenge to update minor changes (e.g. incoming QC updates some minutes after the initial observation time) in the middle of the files. When using files, there are typically also some challenges with locking while writing -- in databases there are transactions to handle this better for multiple calls.
-
-If files-based datasets, e.g. 2d/3d imaging data or similar, needs to be handled, the support can be added e.g. by integrating S3 object storage into the system and using references to file URLs from the database. Database system will then serve also as a (discovery) metadata backend for files.
+To be documented in the code or removed from this document
 
 
 ###### Event sourcing architecture scenario
 
-The specification included a requirement for the Replay functionality, which means that a  user can request missed notification messages for a certain period. Thus we looked into an architecture which needed to have all notifications stored in some way
+**Is this a requiremnt for the open-radar-data solution? REMOVE?**
 
-If we assume that the notification messages also have the actual data (and metadata),
-an [event sourcing](https://www.martinfowler.com/eaaDev/EventSourcing.html) architecture might be appropriate:
+If the system has not been able to put all open-radar-data out on the notification service due to a tecknical issue or downtime. All missing data should be transmitted out to the notification when the system is nominal. 
 
-* All incoming data is processed and translated into the notification event format, probably some kind of data.
-* All these events are stored in an event store. This is the source of truth.
-* The Replay API is built on top of the event store, and simply returns all notifications in a specific time range.
-* The events are also ingested into the "view" database, which is designed to allow efficient EDR queries.
-* The "view" database can be rebuilt from scratch using the event stream (through the Replay API).
-
-wis2box uses Elasticsearch for storing the events for the Replay API, basically using Elasticsearch
-as a document store. This choice makes sense for wis2box, as Elastischsearch is alreay in the stack to
-support OGC Feature queries. An alternative is to use PostgreSQL as an event store.
-
-An example C4 diagram using Elasticsearch as event store is given below.
-
-
-Based on further architecture discussions it was decided 25th of April 2023 at the Helsinki workshop, that the Replay functionality will not be implemented.
-Because of this we deem the event sourcing architecture not to be relevant anymore.
+If the end user needs to replay the datastram he needs to collect needed data from the API endpoint. The output could be struructured as a MQTT stream format. Hovever the messages wil not be posted on the notification service. 
 
 
 ###### Conclusion
 
-The final data store will be selected from the three options mentioned above (Relational, Document-based, and Relational with JSON-extension). This will be done after further analysis (by continuing the Proof Of Concepts work) taking into account the following criteria:
+The final data store will be selected during the development. This will be done taking into account the following criteria:
 
 * Technical suitability to meet the requirements
 * High enough performance for all relevant use cases
@@ -183,12 +140,19 @@ The final data store will be selected from the three options mentioned above (Re
 
 ### Data Models
 
-A *dataset* is defined as a collection of data records and their associated information content (e.g., use, discovery, provenance metadata). In the E-SOH context, we consider the (Near-) Real-Time (NRT) data as extracts of externally available datasets like, e.g., climate timeseries. We refer to these datasets as "parent" datasets, whereas the extracts are referred to as "child" datasets.
+European composite
+ODIM HDF5
 
-*NetCDF and CF-NetCDF*
+Single site radar data  
+Validated ODIM HDF5
 
-[NetCDF] is a binary, platform-independent, domain-neutral data format for multidimensional data. Essentially, a NetCDF file is a collection of multidimensional arrays, plus metadata provided as key-value pairs. Metadata conventions are required to specialise NetCDF for particular communities. The Climate and Forecast conventions are the pre-eminent conventions for geospatial NetCDF data. NetCDF files that conform to these conventions are known as "CF-NetCDF files". Note that there are different varieties of the NetCDF format and data model. Here we are concerned with the "classic" NetCDF data model.
+National composite
+- Validated ODIM HDF5
+- Netcdf
+- clout optimised geotiff
 
+
+API input and output formats
 *CoverageJSON*
 The overall concepts of CoverageJSON are close to those of the [ISO19123] standard and the OGC standard Coverage Implementation Schema ([OGC-CIS]), which specialises ISO19123.
 https://www.iso.org/standard/40121.html
