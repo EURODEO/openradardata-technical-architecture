@@ -48,7 +48,7 @@ The TDD is intended to be a living document, updated as necessary throughout the
 
 ### Scope of the System
 
-The vision of the Europena Open Radara data is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
+The vision of the Europena Open Radar data is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
 
 
 ## System Overview
@@ -59,7 +59,7 @@ The vision of the Europena Open Radara data is to deliver one of the components 
 
 In this diagram the context of the... system is depicted.
 
-[Context Diagram](Untitled_Diagram.drawio)
+**LINK TO Context Diagram**
 
 
 On the left are the data producers (mainly NMHS's) who produce the Observation data and related metadata. On the right hand side are the data consumers who use the data via data consuming systems (f.i. the FEMDI Data catalogue and API)
@@ -68,35 +68,30 @@ On the left are the data producers (mainly NMHS's) who produce the Observation d
 
 The diagram below depicts the landscape of the E-SOH system.
 
-[Context Diagram](WP6.drawio)
+**LINK TO Landscape Diagram**
 
+On top is the data consumer who is interested in the open radar data form one or more NMS. The data consumer can get the data in two ways:
+- Via the FEMDI system. The FEMDI system will be build in a RODEO Work package. It will contain the Data Catalogue and a central API Gateway which will forward the API queries from the user to the Central API from the federated open-radar-data system.
+**-  Via the WIS2 Shared services. The WIS2.0 shared services will replace the GTS. In the future the user will be able to retreve European open-radar-data files that is posted to the WIS 2.0 system. This is a functionality that has to be developed and made available accourding to the Eumetnet OPERA and EU HVD** 
+- 
 
-
-On top is the data consumer who is interested in the real-time weather observations. The data consumer can get the data in two ways:
-- Via the WIS2 Shared services. The WIS2.0 shared services will replace the GTS. In the future the user will be able to retrieve observation data directly from the E-SOH instances (if the local instance allow this). The WIS2.0 shared services will also provide BUFR files.
-- Via the FEMDI system. The FEMDI system will be build in RODEO Work package It will contain the Data Catalogue and a central API Gateway which will forward the API queries from the user to the Central API from the federated E-SOH system.
-
-The E-SOH federated system consists of a central E-SOH API endpoint, and local E-SOH instances. The Central E-SOH API endpoint connects all the local E-SOH instances and other E-SOH compatible implementations within the federated
-system. The API endpoint, plus one local instance will run centrally on the European Weather Cloud (EWC). Other local E-SOH instances may be operated at NMHS premises if they have the capacity to do so. If they do not, NMHSes may also push data to the EWC local instance.
-
-In addition to the local and central E-SOH instances, some NMHSes may choose to develop their own system and make this compatible with E-SOH, such that it can be part of the federated system. This is depicted in the right box called
-"Local E-SOH Implementation".
+The open-radar-data system consists of a central API endpoint that is able to connect to a central datastore in EWC and local datastores at each NMS (For products within the national composite category). The API endpoint will run centrally on the European Weather Cloud (EWC). There is not planned to run federated API solutions in this the open-radar-data system. 
 
 #### Container Diagram
 
 The container diagram below shows all the main components of the E-SOH system.  
 
+**LINK TO Landscape Diagram**
 
 
-On the right is the Central E-SOH API Endpoint. In the middle are all the components of an E-SOH local instance. Each local E-SOH instance consists of 7 components:
+The main access point for conumers is the Central open-radar-data API Endpoint. The ope-radar-data system consists of diferent components:
 
-1. Ingestion. This component will take care of the ingestion of observation data both via push and pull mechanisms.  
-2. Notification service. This component provides notifications to the external systems as soon as new data is ingested, so the data can be pulled by the external systems.
-3. Output encoder. This component is called upon by the Access API if a user wants a specific format like BUFR.
-4. Data and metadata store. The main storage component for data and metadata. It has the memory of a goldfish: it will hold the data only for 24 hours. 
-5. Input decoder. This component is called upon by the Ingestion component for decoding BUFR and csv input. It will use OSCAR to retrieve missing station metadata.
-6. Search and access API's. The endpoint for both the Central E-SOH API endpoint and external WIS2.0 services.
-7. Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the E-SOH local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/e-soh-kpis).
+ - Ingestion. This component will take care of the ingestion of observation data both via push and pull mechanisms.  
+ - Input decoder. This component is called upon by the Ingestion component for decoding radar files input. It will use extract form OPERA metadata database and OSCAR to retrieve missing radar site metadata.
+ - Notification service. This component provides notifications to the external systems as soon as new data is ingested, so the data can be pulled by the external systems. All data is made avaialble is the notifictions trough links to dataset stored in EWC object-store or in local datastor localy at NMS or in NMS tennency.  
+ - Metadata store. The main storage component for data and metadata. It has the memory of a goldfish: it will hold the data only for 24 hours. 
+ - Search and access API's. The endpoint for both the Central E-SOH API endpoint and external WIS2.0 services.
+ - Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the E-SOH local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/e-soh-kpis).
 
 
 ### Components and Interfaces
