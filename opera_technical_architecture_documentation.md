@@ -311,10 +311,6 @@ Implementing these strategies will help proactively address security risks and e
 
 The performance requirements for the software system are crucial to ensure that it meets the expectations of end-users and can handle the anticipated workload efficiently. This section outlines the key performance metrics, targets, and goals that the system must achieve.
 
-DWD Comments:
-
-* Origin of the following numbers unclear?
-
 *Response Time:* The time taken by the system to process a request and return a response should be within acceptable limits to provide a smooth user experience. For example, the response time for user-facing operations (time between search request, via the Search API and search result) should be under 200 milliseconds for 95% of requests and under 500 milliseconds for 99% of requests.
 
 *Throughput:* The system should be able to handle a specified number of requests per second or transactions per minute without degrading performance. This metric depends on the expected usage patterns and peak loads. For example, the system should support a throughput of at least 1000 requests per second during peak times.
@@ -354,15 +350,11 @@ All environments run in the EWC. The EWC uses Virtual Machine instances with the
 
 * Resources
   ** 8 vCores 16GB RAM
-  ** 16 vCores 32GB RAM
-  ** Many smaller plans in different steps
+  
 * Operating systems
-  ** CentOS 7.9
-  ** RockyLinux 8.8
-  ** Ubuntu 18.04/20.04/22.04
+  ** 
 
 ### Deployment Environments
-
 This section provides an overview of the deployment strategy and environments that are employed to ensure the smooth operation and management of the system. The purpose of outlining these is to create a clear understanding of how the system components are deployed, configured, and maintained across various stages of development and production.
 
 **Development Environment:**
@@ -377,7 +369,6 @@ The production environment is where the live system operates and serves end-user
 The deployment strategy for each environment is designed to minimize the risks associated with changes and updates while ensuring that the system remains stable and secure. Key aspects of the deployment strategy include version control, automated build and deployment processes, and a clear rollback plan in case of issues. This approach enables rapid delivery of new features and improvements while maintaining the overall integrity of the system.
 
 ### Deployment Process
-
 Continuous integration and delivery (CI/CD) is a critical aspect of the deployment architecture, as it streamlines the process of building, testing, and deploying application components across various environments. By adopting CI/CD best practices, the system can achieve faster release cycles, improved reliability, and reduced risk associated with software updates. This section describes the CI/CD pipeline and its key components.
 
 *Version Control System:* A version control system (VCS) is used to manage and track changes to the codebase throughout the development lifecycle. It enables developers to collaborate efficiently and ensures that every change is documented and traceable. The chosen VCS should support branching and merging strategies, allowing developers to work on new features and bug fixes independently while maintaining a stable main branch.
@@ -416,12 +407,12 @@ Based on all figures mentioned above, important metrics can be derived and calcu
 ### Backup and Recovery
 
 Backup and recovery system should be implemented and tested for full functionality, either via the EWC backup functionality or some open source backup tool.
-
-DWD: A decision is to be made, which software is suitable for this case. TDB: Where to store the backup data with geo redundancy?
+* A decision is to be made, which software is suitable for this case.
+* Where to store the backup data with geo redundancy?
 
 ### Disaster Recovery and Business Continuity
 
-In the event of a worst case situation, if only the source code still remains, there should be a disaster recovery procedure. This procedure includes plans for a recreation of the whole system starting from the bare source code of the E-SOH project and contains compilation of the project artifacts and creating a new and clean virtual machine setup at the EWC. To guarantee business continuity a emergency procedure plan is needed with a list of personnel who are responsible for failure recovery.
+In the event of a worst case situation, if only the source code still remains, there should be a disaster recovery procedure. This procedure includes plans for a recreation of the whole system starting from the bare source code of the project and contains compilation of the project artifacts and creating a new and clean virtual machine setup at the EWC. To guarantee business continuity a emergency procedure plan is needed with a list of personnel who are responsible for failure recovery.
 
 To mitigate a disaster or total loss of data a geo and service redundancy should be established at least for the project source code (e.g. automated mirroring/pulling of the public repository). Backup systems may also be created inside the EUMETSAT cloud to create further redundancy.
 
@@ -431,19 +422,19 @@ To mitigate temporal outages of some instances, a orchestration software like Ku
 
 ### Code Management and Versioning
 
-The Version Control System, in this case git, will provide code management and versioning of everything E-SOH related.
+The Version Control System, in this case github, will provide code management and versioning of everything project related.
 
 ### Bug Tracking and Issue Resolution
 
-The VCS platform, in this case Github, will also provide bug tracking and issue resolution of everything E-SOH related.
+The VCS platform, in this case Github, will also provide bug tracking and issue resolution of everything project related.
 
 ### Feature Enhancements and Roadmap
 
-The VCS platform, in this case Github, will also provide feature and enhancement tracking and milestones of everything E-SOH related.
+The VCS platform, in this case Github, will also provide feature and enhancement tracking and milestones of everything project related.
 
 ### Documentation and Training
 
-Initially the VCS platform, in this case Github, will also contain all E-SOH documentation. As soon as the system is working in a beta version user documentation and training material will be developped. This material will be made available on the platform which will be chosen in RODEO Work Package 7.
+Initially the VCS platform, in this case Github, will also contain all project documentation. As soon as the system is working in a beta version user documentation and training material will be developped. This material will be made available on the platform which will be chosen in RODEO Work Package 7.
 
 ### Support Channels and SLAs
 
