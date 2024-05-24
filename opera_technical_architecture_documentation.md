@@ -90,7 +90,7 @@ The main access point for conumers is the Central open-radar-data API Endpoint. 
  - Notification service. This component provides notifications to the external systems as soon as new data is ingested, so the data can be pulled by the external systems. All data is made avaialble is the notifictions trough links to dataset stored in EWC object-store or in local datastor localy at NMS or in NMS tennency.  
  - Metadata store. The main storage component for data and metadata. It has the memory of a goldfish: it will hold the data only for 24 hours. 
  - Search and access API's. The endpoint for both the Central open-radar-data API endpoint and external WIS2.0 services.
- - Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the open-radar-data local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/e-soh-kpis).
+ - Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the open-radar-data local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/openradardata-requirements/blob/main/KPI_documentation.md).
 
 
 ### Components and Interfaces
