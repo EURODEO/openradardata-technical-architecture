@@ -101,7 +101,7 @@ The main access point for conumers is the Central open-radar-data API Endpoint. 
 
 #### Notification Service
 
-Based on the development in the RODEO E-soh WP RabbitMQ is the technology choice for the Open-radar-data Notification Service. One drawback is that it does not support MQTT V5 but we expect that this is coming.
+Based on the development in the RODEO open-radar-data WP RabbitMQ is the technology choice for the Open-radar-data Notification Service. One drawback is that it does not support MQTT V5 but we expect that this is coming.
 
 #### Data and Metadata Store
 
@@ -165,7 +165,7 @@ The overall structure of CoverageJSON is quite close to that of [NetCDF], consis
 
 **(Which of theese shoult be mentioned)** The following principles shall be followed: 
 
-* A minimum set of (required and recommended) metadata must follow the data, i.e., as part of the data files output from E-SOH APIs and the event queue.
+* A minimum set of (required and recommended) metadata must follow the data, i.e., as part of the data files output from open-radar-data APIs and the event queue.
 * Input datasets must be enriched by required metadata upon ingestion, if it is not already provided.
 * In order to obtain traceability, a child dataset must reference its parent dataset by the parent's metadata identification. The parent dataset's metadata identification is expected to be persistent and actionable, but the NRT dataset identification is not.
 * To support interoperability, it must be possible to translate from the agreed data-following standards to other standards (e.g., DCAT, ISO19115, etc.).
@@ -204,7 +204,7 @@ Options for the MQTT message payload:
 
 #### OSCAR
 
-OSCAR/Surface is the World Meteorological Organization's official repository of WIGOS metadata for all surface-based observing stations and platforms. Metadata on the capabilities of observing stations / platforms and their instruments and methods of observation, are routinely submitted to and maintained in OSCAR/Surface by WMO Members. The E-SOH system will retrieve metadata about the observation station from Oscar in case it is missing in provided data (i.e. BUFR or CSV-input).
+OSCAR/Surface is the World Meteorological Organization's official repository of WIGOS metadata for all surface-based observing stations and platforms. Metadata on the capabilities of observing stations / platforms and their instruments and methods of observation, are routinely submitted to and maintained in OSCAR/Surface by WMO Members. The open-radar-data system will retrieve metadata about the observation station from Oscar in case it is missing in provided data (i.e. BUFR or CSV-input).
 
 Station metadata can be pulled from Oscar/Surface with a REST API available here: https://oscar.wmo.int/surface/rest/api/search/station?territoryName=NLD (this call will get you all the dutch observation stations). Documentation on how to use the OSCAR REST API available here: https://oscar.wmo.int/surface/=/.
 
@@ -212,7 +212,7 @@ Station metadata can be pulled from Oscar/Surface with a REST API available here
 
 #### OGC API - Environmental Data Retrieval
 
-The WIS 2.0 recommendation is to use OpenAPI 3 compatible APIs, and in particular OGC EDR if possible. The design choise for E-SOH was to use OGC EDR API to implement API based access to data.
+The WIS 2.0 recommendation is to use OpenAPI 3 compatible APIs, and in particular OGC EDR if possible. The design choise for open-radar-data was to use OGC EDR API to implement API based access to data.
 
 The Environmental Data Retrieval (EDR) API is an Open Gespactial Consortium standard.
 
