@@ -257,7 +257,11 @@ The FEMDI, WIS2 and E-SOH documentation does not directly mention API Rate limit
 
 ### Data Protection and Encryption
 
+Data transfer is done via secure connections (HTTPS etc.). Stored data is NOT encrypted (not necessary).
+
 ### Authentication and Authorization
+
+By default access to data is open and unrestricted according to the EU Open Data Directive High-Value Datasets definition (HVD). However in some cases it might be necessary to restrict access to some products. In this case, the FEMDI API Gateway can be leveraged.
 
 ### Auditing and Logging
 
@@ -267,7 +271,6 @@ Effective auditing and logging are essential for monitoring the software system'
 - Log Format and Structure: Use a consistent and structured log format, such as JSON, to facilitate automated log processing and analysis.
 - Log Retention and Storage: Define a log retention policy to ensure logs are stored securely and retained for a sufficient duration to meet compliance requirements and support incident response.
 - Access Control: Limit access to logs to authorized personnel, protecting sensitive information and maintaining the integrity of the logs.
-- Log Monitoring and Analysis: Implement real-time log monitoring and analysis using tools like SIEM solutions to detect and respond to potential security incidents and performance issues.
 - Audit Trails: Maintain audit trails to track changes in the system, such as configuration updates, user privilege modifications, or sensitive data access, enabling accountability and traceability.
 - Compliance: Ensure logging and auditing practices meet relevant industry standards, regulatory requirements, or internal policies, and are regularly reviewed and updated as needed.
  
