@@ -59,7 +59,7 @@ The vision of the Europena Open Radar data is to deliver one of the components o
 
 In this diagram the context of the... system is depicted.
 
-![C4 Openradar Container](./source/images/c4-container-openradar-wp6.png)
+**LINK TO Context Diagram**
 
 
 On the left are the data producers (mainly NMHS's) who produce the Observation data and related metadata. On the right hand side are the data consumers who use the data via data consuming systems (f.i. the FEMDI Data catalogue and API)
