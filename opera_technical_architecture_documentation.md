@@ -80,7 +80,7 @@ The open-radar-data system consists of a central API endpoint that is able to co
 
 The container diagram below shows all the main components of the open-radar-data system.  
 
-**LINK TO Landscape Diagram**
+![C4 Openradar Container](./source/images/c4-container-openradar-wp6.png)
 
 
 The main access point for conumers is the Central open-radar-data API Endpoint. The ope-radar-data system consists of diferent components:
