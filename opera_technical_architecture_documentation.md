@@ -19,17 +19,17 @@ all stakeholders involved in the project.
 | | | |
 
 ## Table of Contents
-- [Introduction](#Introduction)
-- [System Overview](#System_Overview)
-- [Detailed Design](#Detailed_Design)
-- [Integration and APIs](#Integration_and_APIs)
-- [Security and Privacy](#Security_and_Privacy)
-- [Performance and Scalability](#Performance_and_Scalability)
-- [Deployment and Operations](#Deployment_and_Operations)
-- [Maintenance and Support](#Maintenance_and_Support)
-- [Conclusions](#Conclusion)
-- [Definitions, Acronyms, and Abbreviations](#Definitions,_Acronyms,_and_Abbreviations)
-- [References](#References)
+- [Introduction](#introduction)
+- [System Overview](#system-overview)
+- [Detailed Design](#detailed-design)
+- [Integration and APIs](#integration-and-apis)
+- [Security and Privacy](#security-and-privacy)
+- [Performance and Scalability](#performance-and-scalability)
+- [Deployment and Operations](#deployment-and-operations)
+- [Maintenance and Support](#maintenance-and-support)
+- [Conclusions](#conclusion)
+- [Definitions, Acronyms, and Abbreviations](#definitions-acronyms-and-abbreviations)
+- [References](#references)
 
 
 ## Introduction
