@@ -13,8 +13,8 @@ all stakeholders involved in the project.
 
 |Version |Date |Comment |Responsible
 |:---|:---|:---|:---
-|0.1 |2024-01-14 |First draft |Annakaisa v. Lerber
-|0.2 |2024-05-03 |Rewrite     |Vegar K
+|0.1 |2024-01-14 | First draft |Annakaisa v. Lerber
+|0.2 |2024-05-03 | Rewrite |Vegar Kristiansen
 |1.0 |2024-06-28 | Reviewed for the MS16 | Annakaisa von Lerber
 
 ## Table of Contents
@@ -32,6 +32,9 @@ all stakeholders involved in the project.
 
 
 ## Introduction
+
+This Technical Design Document (TDD) provides a comprehensive and detailed description of the software system being developed, to serve as a reference for
+all stakeholders involved in the project. The technical design is based on the requirements stated in the 
 
 ### Purpose of the Document
 
