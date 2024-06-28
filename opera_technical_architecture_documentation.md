@@ -34,7 +34,7 @@ all stakeholders involved in the project.
 ## Introduction
 
 This Technical Design Document (TDD) provides a comprehensive and detailed description of the software system being developed, to serve as a reference for
-all stakeholders involved in the project. The technical design is based on the requirements stated in the 
+all stakeholders involved in the project. The technical design is based on the user, system and business requirements stated in the [Requirements documentation](#https://github.com/EURODEO/openradardata-requirements/blob/main/Deliverable_Requirements.md)   
 
 ### Purpose of the Document
 
