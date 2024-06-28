@@ -15,8 +15,7 @@ all stakeholders involved in the project.
 |:---|:---|:---|:---
 |0.1 |2024-01-14 |First draft |Annakaisa v. Lerber
 |0.2 |2024-05-03 |Rewrite     |Vegar K
-| | | |
-| | | |
+|1.0 |2024-06-28 | Reviewed for the MS16 | Annakaisa von Lerber
 
 ## Table of Contents
 - [Introduction](#introduction)
