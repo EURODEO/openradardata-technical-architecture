@@ -19,17 +19,17 @@ all stakeholders involved in the project.
 | | | |
 
 ## Table of Contents
-- [Introduction](#Introduction)
-- [System Overview](#System_Overview)
-- [Detailed Design](#Detailed_Design)
-- [Integration and APIs](#Integration_and_APIs)
-- [Security and Privacy](#Security_and_Privacy)
-- [Performance and Scalability](#Performance_and_Scalability)
-- [Deployment and Operations](#Deployment_and_Operations)
-- [Maintenance and Support](#Maintenance_and_Support)
-- [Conclusions](#Conclusion)
-- [Definitions, Acronyms, and Abbreviations](#Definitions,_Acronyms,_and_Abbreviations)
-- [References](#References)
+- [Introduction](#introduction)
+- [System Overview](#system-overview)
+- [Detailed Design](#detailed-design)
+- [Integration and APIs](#integration-and-apis)
+- [Security and Privacy](#security-and-privacy)
+- [Performance and Scalability](#performance-and-scalability)
+- [Deployment and Operations](#deployment-and-operations)
+- [Maintenance and Support](#maintenance-and-support)
+- [Conclusions](#conclusion)
+- [Definitions, Acronyms, and Abbreviations](#definitions-acronyms-and-abbreviations)
+- [References](#references)
 
 
 ## Introduction
@@ -80,7 +80,7 @@ The open-radar-data system consists of a central API endpoint that is able to co
 
 The container diagram below shows all the main components of the open-radar-data system.  
 
-**LINK TO Landscape Diagram**
+![C4 Openradar Container](./source/images/c4-container-openradar-wp6.png)
 
 
 The main access point for conumers is the Central open-radar-data API Endpoint. The ope-radar-data system consists of diferent components:
