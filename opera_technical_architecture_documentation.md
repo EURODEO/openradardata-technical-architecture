@@ -6,7 +6,7 @@
 
 ## Abstract
 
-This Technical Design Document (TDD) provides a comprehensive and detailed description of the software system being developed, to serve as a reference for
+This Technical Design Document (TDD) provides a comprehensive and detailed description of the Open Radar Data (ORD) supply system being developed, to serve as a reference for
 all stakeholders involved in the project.
 
 ## Revision history
@@ -38,7 +38,7 @@ all stakeholders involved in the project. The technical design is based on the u
 
 ### Purpose of the Document
 
-The purpose of this Technical Design Document (TDD) is to provide a comprehensive and detailed description of the software system being developed, to serve as a reference for all stakeholders involved in the project. This document aims to:
+ The TDD document aims to:
 
 * Define the software's architecture, components, and their relationships.
 * Communicate the design decisions and rationale behind the chosen solutions.
@@ -50,7 +50,7 @@ The TDD is intended to be a living document, updated as necessary throughout the
 
 ### Scope of the System
 
-The vision of the Europena Open Radar data is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
+The vision of the O data is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
 
 
 ## System Overview
