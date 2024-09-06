@@ -331,7 +331,7 @@ These tests should include but are not limited to:
 All environments run in the EWC. The EWC uses Virtual Machine instances with the following currently possible configuration options:
 
 * Resources
-  ** 8 vCores 16GB RAM
+  **
   
 * Operating systems
   ** 
@@ -384,7 +384,7 @@ To detect security attacks and possible breaches it is also important to check f
 
 Monitoring request times and functionality from an external point of view, from outside of the EWC network, could be beneficial to get a good perspective of the end user experience.
 
-Based on all figures mentioned above, important metrics can be derived and calculated. The sum of all system functionalities build up the important _the mean time to recovery_ (MTTR) and _mean time between failure_ (MTBF) values, as well as the total uptime of the whole E-SOH system.
+Based on all figures mentioned above, important metrics can be derived and calculated. The sum of all system functionalities build up the important _the mean time to recovery_ (MTTR) and _mean time between failure_ (MTBF) values, as well as the total uptime of the whole ORD system.
 
 ### Backup and Recovery
 
@@ -457,7 +457,6 @@ By selecting the Apache License 2.0 for this project, the development team aims 
 |DCAT |[Data Catalog Vocabulary](https://www.w3.org/TR/vocab-dcat)/
 |DCAT-AP |[DCAT Application profile for data portals in Europe](https://op.europa.eu/en/web/eu-vocabularies/dcat-ap)
 |EDR  |[OGC API - Environmental Data Retrieval](https://ogcapi.ogc.org/edr/)
-|E-SOH|EUMETNET Supplementary Observation dataHub
 |EUMETNET |[A Network of 31 European NMHSs](https://eumetnet.eu)
 |EUMETSAT |[European Organisation for the Exploitation of Meteorological Satellites](https://eumetsat.int)
 |EWC |[European Weather Cloud](https://www.europeanweather.cloud)
