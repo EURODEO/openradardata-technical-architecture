@@ -1,4 +1,4 @@
-# RODEO WP6 OPERA Weather Radar Data Technical Architecture Design Document
+# RODEO WP6 Open Radar Data (ORD) Technical Architecture Design Document
 
 
 ### Vegar Kristiansen (METNO), Mikko Rauhala (FMI), Mikko Visa (FMI), Istvan Sebok (METNO), Peter Alexander Garnæs (DMI)
@@ -16,6 +16,8 @@ all stakeholders involved in the project.
 |0.1 |2024-01-14 | First draft |Annakaisa v. Lerber
 |0.2 |2024-05-03 | Rewrite |Vegar Kristiansen
 |1.0 |2024-06-28 | Reviewed for the MS16 | Annakaisa von Lerber
+|1.1 |2024-09-06 | Cleanup for M18 Review | Vegar Kristiansen
+
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -50,7 +52,7 @@ The TDD is intended to be a living document, updated as necessary throughout the
 
 ### Scope of the System
 
-The vision of the O data is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
+The vision of the openradardata service is to deliver one of the components of an FEMDI arcitecture, that is sustainable and meets the technical requirements and standards of international bodies, including WMO (e.g., WIS 2.0) and the European Union (e.g., HVD). The aim is to enable increased sharing of radardata and to allow a gradual transition for using Internet for collection and distribution of information. In particular, Europena Open Radara data shall demonstrate WIS 2.0 in pracsis.
 
 
 ## System Overview
@@ -61,9 +63,9 @@ The vision of the O data is to deliver one of the components of an FEMDI arcitec
 
 #### Landscape Diagram
 
-On top is the data consumer who is interested in the open radar data form one or more NMS. The data consumer can get the data in two ways:
-- Via the FEMDI system. The FEMDI system will be build in a RODEO Work package. It will contain the Data Catalogue and a central API Gateway which will forward the API queries from the user to the Central API from the federated open-radar-data system.
-- **Via the WIS2 Shared services. The WIS2.0 shared services will replace the GTS. In the future the user will be able to retreve European open-radar-data files that is posted to the WIS 2.0 system. This is a functionality that has to be developed and made available accourding to the Eumetnet OPERA and EU HVD** 
+On top is the data consumer who is interested in the open radar data from one or more NMS. The data consumer can get the data in two ways:
+- Via the FEMDI gateway. The FEMDI system will be build in a RODEO Work package. It will contain the Data Catalogue and a central API Gateway which will forward the API queries from the user to the Central API from the federated open-radar-data system.
+- Via the WIS2 Shared services. The WIS2.0 shared services will replace the GTS. In the future the user will be able to retreve European open-radar-data files that is posted to the WIS 2.0 system. This is a functionality that has to be developed and made available accourding to the Eumetnet OPERA and EU HVD 
 
 The ORD system consists of a central API endpoint that is able to connect to a central datastore in EWC and local datastores at each NMS (For products within the national composite category). The API endpoint will run centrally on the European Weather Cloud (EWC). There is not planned to run federated API solutions in this the open-radar-data system. 
 
@@ -76,8 +78,8 @@ The container diagram below shows all the main components of the ORD system.
 The main access point for consumers is the Central ORD API Endpoint. The ORD system consists of different components:
 
  - Ingestion. This component will take care of the ingestion of observation data both via push and pull mechanisms.  
- - Input decoder. This component is called upon by the Ingestion component for decoding radar files input. It will use extract form OPERA metadata database and OSCAR to retrieve missing radar site metadata.
- - Notification service. This component provides notifications to the external systems as soon as new data is ingested, so the data can be pulled by the external systems. All data is made avaialble is the notifictions trough links to dataset stored in EWC object-store or in local datastor localy at NMS or in NMS tennency.  
+ - Input decoder. This component is called upon by the Ingestion component for decoding radar files input. It will extract metadata from OPERA metadata database and OSCAR to retrieve missing radar site metadata.
+ - Notification service. This component provides notifications to the external systems as soon as new data is ingested, so the data can be pulled by the external systems. All data is made avaialble is the notifictions trough links to dataset stored in EWC object-store or other storage systems that alous open data for download wia web. Eg. datastor localy at NMS or in NMS tennency at EWC 
  - Metadata store. The main storage component for data and metadata. It has the memory of a goldfish: it will hold the data only for 24 hours. 
  - Search and access API's. The endpoint for both the Central ORD API endpoint and external WIS2.0 services.
  - Logging, monitoring, alerting and reporting. This component will do the logging, monitoring and alerting for all the components within the ORD local instance. It will also produce reports with metrics based of the [Key Performance Indicators (KPIs)](https://github.com/EURODEO/openradardata-requirements/blob/main/KPI_documentation.md).
@@ -91,29 +93,17 @@ The main access point for consumers is the Central ORD API Endpoint. The ORD sys
 
 #### Notification Service
 
-Based on the development in the RODEO open-radar-data WP RabbitMQ is the technology choice for the Open-radar-data Notification Service. One drawback is that it does not support MQTT V5 but we expect that this is coming.
+Based on the development in the RODEO ORD WP RabbitMQ is the technology choice for the ORD Notification Service. One drawback is that it does not support MQTT V5 but we expect that this is coming.
 
 #### Data and Metadata Store
 
 ##### Datastore alternatives
 
-The PRD metadata store will choos the storage backend that is most relavent for the systems intended use. This will not be visible for the enduser. The storage backend will only be measured on the I/O as part of the system. And and how it performs in a operational setting.    
+The ORD metadata store will choos the storage backend that is most relavent for the systems intended use. This will not be visible for the end user. The storage backend will only be measured on the I/O as part of the system. And and how it performs in a operational setting.    
 
 ###### Document database approach
 
 To be documented in the code or removed from this document
-
-###### Event sourcing architecture scenario
-
-**Is this a requiremnt for the open-radar-data solution? REMOVE?**
-
-If the system has not been able to put all open-radar-data out on the notification service due to a tecknical issue or downtime. All missing data should be transmitted out to the notification when the system is nominal. 
-
-If the end user needs to replay the datastram he needs to collect needed data from the API endpoint. The output could be struructured as a MQTT stream format. Hovever the messages wil not be posted on the notification service. 
-
-
-###### Conclusion
-
 The final data store will be selected during the development. This will be done taking into account the following criteria:
 
 * Technical suitability to meet the requirements
@@ -126,6 +116,9 @@ The final data store will be selected during the development. This will be done 
   ** Wide community adoption
   ** Maturity versus lifetime expectancy
 
+###### Event sourcing architecture scenario
+
+If the end user needs to replay the datastram he needs to collect needed data from the API endpoint. The output could be struructured as a MQTT stream format. Hovever the messages wil not be posted on the notification service. 
 
 ### Data Models
 
@@ -151,23 +144,22 @@ The overall structure of CoverageJSON is quite close to that of [NetCDF], consis
 
 #### Metadata specification
 
-**(Which of theese shoult be mentioned)** The following principles shall be followed: 
+The following principles shall be followed: **(Which of theese shoult be mentioned)** 
 
-* A minimum set of (required and recommended) metadata must follow the data, i.e., as part of the data files output from open-radar-data APIs and the event queue.
-* Input datasets must be enriched by required metadata upon ingestion, if it is not already provided.
-* In order to obtain traceability, a child dataset must reference its parent dataset by the parent's metadata identification. The parent dataset's metadata identification is expected to be persistent and actionable, but the NRT dataset identification is not.
-* To support interoperability, it must be possible to translate from the agreed data-following standards to other standards (e.g., DCAT, ISO19115, etc.).
+* Metadata will follow the structure defined by the **Data Format** and must follow the data when ingested. 
+* Additional metadata will be enriched by the system upon ingestion, if it is not already provided.
+* The goal is to make the system and its data FAIR regarding tracability and interoperability  
 * All datasets must have defined use constraints provided by a standard license or release statement ("no rights reserved").
 * All datasets must have defined access constraints. The optional access constraints must be defined by a controlled vocabulary.
 
 The [Attribute Convention for Data Discovery](https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3) describes attributes recommended for describing a NetCDF dataset to data discovery systems. It should be possible to use the ACDD vocabulary in, e.g., GeoJSON or CoverageJSON as well.
 
-If possible The [CF metadata conventions](https://cfconventions.org/) define (use) metadata that provide a definitive description of what the data in each variable represents, as well as its spatial and temporal properties. This enables users to understand and reuse the data. The CF metadata conventions were created for the NetCDF format, but there are ongoing efforts to also use it for the definition of a standard JSON format for the exchange of weather and climate data; [CF-JSON](http://cf-json.org/).
+If possible The [CF metadata conventions](https://cfconventions.org/) including CF-radial define (use) metadata that provide a definitive description of what the data in each variable represents, as well as its spatial and temporal properties. This enables users to understand and reuse the data. The CF metadata conventions were created for the NetCDF format, but there are ongoing efforts to also use it for the definition of a standard JSON format for the exchange of weather and climate data; [CF-JSON](http://cf-json.org/).
 
 Recommendations:
 
 * The ACDD vocabulary should be used to make datasets Findable, with extensions where necessary to promote Interoperability with existing standards (e.g., DCAT, ISO19115 and profiles of these)
-* The CF conventions should be followed to enable Reuse **(If possoble)** 
+* If possible the CF conventions should be followed to enable Reuse 
 * Use a standard license, e.g., [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/), provided by the URL in the form similar to "<URL> (<Identifier>)" using elements from the [SPDX license list](https://spdx.org/licenses/).
 
 
@@ -181,10 +173,9 @@ Requirements:
 
 Options for the MQTT message payload:
 
-* radar data will not be deployd directly to the MQTT message
+* radar data will be deployd directly to the MQTT message for streaming access to the outcom of ORD. Distibution to WIS 2.0 requires a dataset defintion, and is optional. 
 * If data records are embedded in the message, also its discovery metadata must be embedded as ACDD attributes
 * If data records are embedded in the message, also its use metadata following the CF conventions must be embedded 
-* In this context, it must be defined how these messages relate to BUFR files or if separate messages should be submitted for the BUFR files, etc.
 
 ## Integration and APIs
 
@@ -194,7 +185,11 @@ Options for the MQTT message payload:
 
 OSCAR/Surface is the World Meteorological Organization's official repository of WIGOS metadata for all surface-based observing stations and platforms. Metadata on the capabilities of observing stations / platforms and their instruments and methods of observation, are routinely submitted to and maintained in OSCAR/Surface by WMO Members. The open-radar-data system will retrieve metadata about the observation station from Oscar in case it is missing in provided data (i.e. BUFR or CSV-input).
 
-Station metadata can be pulled from Oscar/Surface with a REST API available here: https://oscar.wmo.int/surface/rest/api/search/station?territoryName=NLD (this call will get you all the dutch observation stations). Documentation on how to use the OSCAR REST API available here: https://oscar.wmo.int/surface/=/.
+Single site radar metadata can be pulled form the OPERA database. **(Ref)**
+
+Single site radar metadata can be pulled from Oscar/Surface with a REST API available here: https://oscar.wmo.int/surface/rest/api/search/station?territoryName=NLD (this call will get you all the dutch observation stations). Documentation on how to use the OSCAR REST API available here: https://oscar.wmo.int/surface/=/. **(Update Ref to cover radardata)**
+ 
+
 
 ### API Specifications
 
@@ -204,7 +199,7 @@ The WIS 2.0 recommendation is to use OpenAPI 3 compatible APIs, and in particula
 
 The Environmental Data Retrieval (EDR) API is an Open Gespactial Consortium standard.
 
-The Environmental Data Retrieval (EDR) Application Programming Interface (API) provides a family of lightweight query interfaces to access spatio-temporal data resources by requesting data at a Position, within an Area, along a Trajectory or through a Corridor. A spatio-temporal data resource is a collection of spatio-temporal data that can be sampled using the EDR query pattern geometries. These patterns are described in the section describing the Core Requirements Class.
+The Environmental Data Retrieval (EDR) Application Programming Interface (API) provides a family of lightweight query interfaces to access data resources by requesting data at a Position, within an Area, along a Trajectory or through a Corridor. 
 
 The goals of the EDR API are to make it easier to access a wide range of data through a uniform, well-defined simple Web interface, and to achieve data reduction to just the data needed by the user or client while hiding much of the data storage complexity. A major use case for the EDR API is to retrieve small subsets from large collections of environmental data, such as weather observations. The important aspect is that the data can be unambiguously specified by spatio-temporal coordinates.
 
@@ -212,14 +207,8 @@ A full description of the EDR API can be found on the link:https://docs.ogc.org/
 
 #### OGC API Records
 
-WIS 2.0 recommends the "OGC API - Records" standard for the (discovery) metadata catalogue. E-SOH will use this API to provide relevant metadata to users and to WIS 2.0.
-
-A Record makes a resource discoverable by providing summary information (metadata) about the resource. In this context, resources are things that would be useful to a user or developer, such as features.
-
-OGC API - Records provides a way to browse or search a curated collection of records known as a catalogue. This specification envisions deploying a catalogue as:
-
-* a collection of static files,
-* a collection of records accessed via an API.
+WIS 2.0 recommends the "OGC API - Records" standard for the (discovery) metadata catalogue. A Record makes a resource discoverable by providing summary information (metadata) about the resource. In this context, resources are things that would be useful to a user or developer, such as features. Records is also handled by the FEMDI API gateway. ORD will use the FEMDI API gateway to provide relevant metadata on records to users and to WIS 2.0. 
+Records provides a way to browse or search a curated collection of records known as a catalogue. This specification envisions deploying a catalogue as:
 
 A catalogue can be deployed as a static collection of records stored in web-accessible files and typically co-located with the resources each record is describing. Such a deployment is amenable to browsing using a web browser or being crawled by a search engine crawler.
 
@@ -229,15 +218,15 @@ Full OGC API Records specification can be found on the [OGC records website](htt
 
 #### API Authentication and Authorization
   
-For API Authentication and Authorization E-SOH will be relying on the FEMDI implementation. FEMDI will implement these techniques on later iterations.
+For API Authentication and Authorization ORD will be relying on the FEMDI implementation. FEMDI will implement these techniques on later iterations.
 
 #### API Rate Limiting and Throttling
 
-The OGC API Features and OGC API EDR standards support specifying limits on number of returned responses on both client and server side. Server side limiting will support this throttling functionality and could be one option to be used at the API level. Clients can also ask to limit the response and in this case the server should limit the number of responses and enable paging functionality. If responses exceed the limit the client is given a "next" link to get more responses.
+The OGC API EDR standards support specifying limits on number of returned responses on both client and server side. Server side limiting will support this throttling functionality and could be one option to be used at the API level. Clients can also ask to limit the response and in this case the server should limit the number of responses and enable paging functionality. If responses exceed the limit the client is given a "next" link to get more responses.
 
 Additionally, APIs could and should be protected on the network level for example based on IP address and/or other possible identifiers. This kind of hard limiting can be understood as rate limiting. In this case the server should respond with HTTP 429 "Too Many Requests" response. Note that the server in this case can be something else than the actual server providing the API, i.e., an external firewall or load balancer.
 
-The FEMDI, WIS2 and E-SOH documentation does not directly mention API Rate limiting and throttling. Two E-SOH requirements, [F02](https://eurodeo.github.io/e-soh-requirements/#_f02_247_availability) and [F28](https://eurodeo.github.io/e-soh-requirements/#_f28_e_soh_to_scale_to_user_demands_for_data), however, indirectly touch on the issue. It is assumed that the above measures will be sufficient to address these requirements.
+The FEMDI, WIS2 and ORD documentation does not directly mention API Rate limiting and throttling. ORD will set up a solution to ensure stable ans secure access to data trough its services.
 
 #### Software Technology Choice
 
@@ -250,6 +239,8 @@ Data transfer is done via secure connections (HTTPS etc.). Stored data is NOT en
 ### Authentication and Authorization
 
 By default access to data is open and unrestricted according to the EU Open Data Directive High-Value Datasets definition (HVD). However in some cases it might be necessary to restrict access to some products. In this case, the FEMDI API Gateway can be leveraged.
+
+Access to ingest API will be restricted by SLA for aprooved sources and IP whitelisting will be applied as a first meassure.  
 
 ### Auditing and Logging
 
