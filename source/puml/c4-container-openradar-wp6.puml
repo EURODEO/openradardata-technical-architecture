@@ -16,15 +16,21 @@ LAYOUT_LEFT_RIGHT()
 AddContainerTag("db", $sprite="database_server", $legendText="database container")
 AddContainerTag("File", $sprite="folder", $legendText="File")
 
+SystemDb_Ext(opera_radardb, "OPERA RadarDb", "OPERA radar metadata DB")
 
+SystemQueue_Ext(opera_in,"OPERA Composite", "OPERA Composite")
+SystemQueue_Ext(odim_in,"National ODIM", "NMHS Observation in ODIM format")
 
 System_Boundary(opera_system, "EURODEO Open Radar Data"){
-        'System_Boundary(input_decoder, "Input data processing"){
-        '}
+        System_Boundary(local_oscar, "Local Radar Metadata", "?", "Descr"){
+            Container(radar_metadb, "Radar Metadata","CSV file",$tags=File)
+            Container(meta_upd, "Metadata Updater","weekly update")
+        }
+
         System_Boundary(db,"European Weather Cloud"){
             System_Boundary(ingest,"Ingestion"){
-                Container(input_handler, "Open Radar Data Ingest API", "", "Handles incoming data, and sending to the data store without any encoding, validation.")
-                Container(mqtt_meta, "Message generator", "", "Make notification message")
+                Container(ingest_api, "Open Radar Data Ingest API", "", "Handles incoming data, and sending to the message generator.")
+                Container(msg_gen, "Message generator", "", "-Extract, encode incoming data\n -Meta data from local RadarDb\n-make notification message")
                 ContainerQueue(mqtt, "Notification Service", "MQTT broker", "MQTT Event Queue. WIS2 real-time data sharing by a publication/subscription (PubSub) mechanism based on the Message Queuing Telemetry Transport Protocol.")
             }
             System_Boundary(store,"Store"){
@@ -35,41 +41,29 @@ System_Boundary(opera_system, "EURODEO Open Radar Data"){
             System_Boundary(log,"Logging, Monitoring"){
                 Container(lmar, "Logging, monitoring, alerting and reporting", "")
             }
-        }
-        'System_Boundary(api,"Opera API"){
-        '}
-    
+        }    
 }
-
-SystemQueue_Ext(opera_in,"OPERA Composite", "OPERA Composite")
-SystemQueue_Ext(odim_in,"National ODIM", "NMHS Observation in ODIM format")
 
 Person_Ext(user1,"Customer 1", "Needs: OPERA Composite")
 Person_Ext(user2,"User 2", "Needs: National ODIM")
 System_Ext(user3,"AI", "Needs: Nationonal ODIM")
 
-'System_Ext(subscriber,"Ext Subscribers", "Ext subscriber")
+Rel(odim_in,ingest_api,"File")
+Rel(opera_in,ingest_api,"File")
 
-Rel(odim_in,input_handler,"File")
-Rel(opera_in,input_handler,"File")
+Rel(msg_gen, db_store, "json")
+Rel(msg_gen, mqtt,"MQTT")
+Rel(msg_gen, s3_store, "File")
+Rel(radar_metadb, msg_gen, "Metadata")
 
-Rel(input_handler, db_store, "File")
-'Rel(input_handler, mqtt_meta, "Optional")
-Rel(mqtt_meta, mqtt,"MQTT")
-
-Rel(input_handler, mqtt_meta, "json")
+Rel(ingest_api, msg_gen, "File")
 Rel(db_store, odata_api,"S3 link")
-Rel(db_store, s3_store, "File")
 
-'Rel(input_handler,lmar,"")
+Rel(meta_upd, radar_metadb, "")
+Rel_L(opera_radardb, meta_upd, "")
+
 Rel(ingest,lmar,"")
 Rel(store,lmar,"")
-
-'Rel(odata_api,lmar,"")
-'Rel_U(s3_store,lmar,"")
-
-'Rel(mqtt,lmar,"")
-'Rel(db_store,lmar,"")
 
 Rel(odata_api,user1,"S3 link")
 Rel(odata_api,user2,"S3 link")
@@ -80,17 +74,9 @@ Rel(s3_store,user2,"File")
 Rel(s3_store,user3,"File")
 
 'Rel(mqtt,subscriber,"MQTT")
-Rel(mqtt,user1,"MQTT")
+'Rel(mqtt,user1,"MQTT")
 Rel(mqtt,user2,"MQTT")
-Rel(mqtt,user3,"MQTT")
-
-
-
-
-'BiRel(csv_decoder,oscar_db,"metadata query")
-'BiRel(netcdf_decoder,oscar_db,"metadata query")
-
-
+'Rel(mqtt,user3,"MQTT")
 
 
 @enduml
